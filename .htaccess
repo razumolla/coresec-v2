@@ -1,0 +1,27 @@
+# Static Next.js (export) on cPanel/LiteSpeed
+
+<IfModule mod_rewrite.c>
+  Options -MultiViews
+  DirectoryIndex index.html
+  RewriteEngine On
+  RewriteBase /
+
+  # Serve existing files/dirs/symlinks
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d [OR]
+  RewriteCond %{REQUEST_FILENAME} -l
+  RewriteRule ^ - [L]
+
+  # /path -> /path/index.html (trailingSlash export)
+  RewriteCond %{DOCUMENT_ROOT}/$1/index.html -f
+  RewriteRule ^(.+?)/?$ $1/index.html [L]
+
+  # /path -> /path.html (no trailingSlash export)
+  RewriteCond %{DOCUMENT_ROOT}/$1.html -f
+  RewriteRule ^(.+?)/?$ $1.html [L]
+
+  # Fallback: let client-side router render the page
+  RewriteRule . /index.html [L]
+</IfModule>
+
+ErrorDocument 404 /404.html
