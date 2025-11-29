@@ -60,14 +60,11 @@ const COURSES: Course[] = [
 
 export default function TrainingCatalog() {
   return (
-    <section className="py-16">
+    <section className="py-10">
       <div className="mx-auto max-w-7xl px-4 lg:px-8">
         {/* Header */}
         <div className="text-center">
-          <span className="text-sm font-semibold uppercase tracking-[0.25em] text-primary">
-            Trainings
-          </span>
-          <h2 className="mt-3 text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl">
+          <h2 className="mt-3 text-2xl font-bold tracking-tight text-foreground sm:text-3xl lg:text-4xl">
             Practical, instructor-led security courses
           </h2>
         </div>

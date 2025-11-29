@@ -92,7 +92,7 @@ const items: ServiceItem[] = [
 
 export default function Services() {
   return (
-    <section className="py-20">
+    <section className="py-10">
       <div className="mx-auto max-w-7xl px-6">
         {/* Title */}
         <div className="mb-16 text-center">

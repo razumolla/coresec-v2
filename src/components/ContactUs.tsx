@@ -4,7 +4,7 @@ import { Phone, Mail, Clock, MapPin } from "lucide-react";
 
 export default function ContactUs() {
   return (
-    <section id="contact" className="relative overflow-hidden py-20">
+    <section id="contact" className="relative overflow-hidden py-10">
       <div className="mx-auto max-w-7xl px-4 lg:px-8">
         {/* Heading */}
         <h1 className="text-center text-4xl font-extrabold text-foreground md:text-5xl">
