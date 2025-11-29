@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -15,8 +15,8 @@ import {
   SheetTrigger,
   SheetClose,
 } from "@/components/ui/sheet";
+import { ThemeToggle } from "../theme/theme-toggle";
 
-const brand = "CORESEC";
 const logo = "/logo.png";
 
 type NavItem = {
@@ -41,15 +41,10 @@ const Navbar = () => {
     return pathname === href || pathname.startsWith(href + "/");
   };
 
-  // close drawer when route changes
-  useEffect(() => {
-    setMobileOpen(false);
-  }, [pathname]);
-
   const baseLink =
-    "px-4 py-2 rounded-full text-sm text-white/75 hover:text-white hover:bg-white/10 transition";
+    "px-4 py-2 rounded-full text-sm text-muted-foreground hover:text-foreground hover:bg-muted transition";
   const pillActive =
-    "text-white font-semibold bg-white/10 border border-[#0A84FF]/40 shadow-[0_8px_30px_-12px_rgba(10,132,255,0.7)]";
+    "text-foreground font-semibold bg-muted border border-primary/40 shadow-[0_8px_30px_-12px_oklch(var(--primary)_/_0.7)]";
 
   return (
     <nav
@@ -57,25 +52,25 @@ const Navbar = () => {
       aria-label="Main"
       role="banner"
     >
-      {/* hairline glow */}
-      <div className="w-full bg-linear-to-r from-transparent via-[#0A84FF]/50 to-transparent" />
+      {/* hairline glow using primary */}
+      <div className="w-full bg-linear-to-r from-transparent via-primary/60 to-transparent" />
 
       {/* glass bar */}
-      <div className="border-b border-white/10 bg-[#21242B]/90 backdrop-blur">
+      <div className="border-b border-border bg-background/80 backdrop-blur">
         <div className="mx-auto max-w-7xl px-4">
           <div className="flex items-center gap-4 py-4">
             {/* Brand */}
             <Link href="/" className="flex items-center gap-2">
               <Image
                 src={logo}
-                alt="logo"
+                alt="CORESEC logo"
                 width={40}
                 height={40}
                 priority
-                className="h-10 w-10 rounded-md object-contain ring-1 ring-white/10"
+                className="h-10 w-10 rounded-md object-contain ring-1 ring-border"
               />
-              <span className="hidden bg-linear-to-r from-white via-white to-[#0A84FF] bg-clip-text text-2xl font-semibold tracking-wide text-transparent md:inline lg:inline">
-                {brand}
+              <span className="hidden bg-linear-to-r from-foreground via-foreground to-primary bg-clip-text text-2xl font-semibold tracking-wide text-transparent md:inline">
+                CORESEC
               </span>
             </Link>
 
@@ -93,10 +88,15 @@ const Navbar = () => {
                   {item.label}
                 </Link>
               ))}
+              {/* Theme toggle desktop */}
+              <div className="ml-2">
+                <ThemeToggle />
+              </div>
             </div>
 
-            {/* Mobile toggle */}
-            <div className="ml-auto md:hidden">
+            {/* Mobile toggle + theme */}
+            <div className="ml-auto flex items-center gap-2 md:hidden">
+              <ThemeToggle />
               <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
                 <SheetTrigger asChild>
                   <Button
@@ -104,23 +104,19 @@ const Navbar = () => {
                     size="icon"
                     aria-label="Open menu"
                     aria-expanded={mobileOpen}
-                    className="text-white hover:bg-white/10"
+                    className="text-foreground hover:bg-muted"
                   >
                     <Menu className="h-6 w-6" />
                   </Button>
                 </SheetTrigger>
                 <SheetContent
                   side="right"
-                  className="w-[300px] border-l border-white/10 bg-[#0B0F17] text-white"
+                  className="w-[300px] border-l border-border bg-background text-foreground"
                 >
                   <SheetHeader className="flex flex-row items-center justify-between gap-2">
-                    <SheetTitle className="text-left">{brand}</SheetTitle>
+                    <SheetTitle className="text-left">CORESEC</SheetTitle>
                     <SheetClose asChild>
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        className="text-white hover:bg-white/10"
-                      >
+                      <Button variant="ghost" size="icon">
                         ✕
                       </Button>
                     </SheetClose>
@@ -131,9 +127,9 @@ const Navbar = () => {
                       <SheetClose asChild key={item.label}>
                         <Link
                           href={item.path}
-                          className={`rounded-lg px-3 py-2.5 text-base text-white/80 transition hover:bg-white/10 hover:text-white ${
+                          className={`rounded-lg px-3 py-2.5 text-base text-muted-foreground transition hover:bg-muted hover:text-foreground ${
                             isActive(item.path)
-                              ? "border border-[#0A84FF]/40 bg-white/10 text-white"
+                              ? "border border-primary/40 bg-muted text-foreground"
                               : ""
                           }`}
                         >
