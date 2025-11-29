@@ -54,3 +54,8 @@ cd out
 zip -r ../site.zip . \
   -x '*.map' '*.br' '*.gz' '*precache*' 'sw.js' 'workbox-*'
 ```
+
+```bash
+eJPT Certification
+
+```
